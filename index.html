@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Go powered web server</title>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <script>
+            function pageLoad() {
+                $.ajax({
+                    url: '/list',
+                    type: 'GET',
+                    success: postsList => {
+                        let postsHTML = '<ul>';
+                        for (let post of postsList) {
+                            postsHTML += `<li>${post.name} : ${post.drink}</li>`;
+                        }
+                        postsHTML += '</ul>';
+                        $('#posts').html(postsHTML);
+                    }
+                });
+            }
+        </script>
+
+    </head>
+    <body onload="pageLoad()">
+        <h1>Go powered web server</h1>
+        <div id="posts">
+        </div>
+        <form action="/post" method="post">
+            <div>
+                Name:<input name="name" />
+            </div>
+            <div>
+                Drink:<input name="drink" />
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </body>
+</html>
